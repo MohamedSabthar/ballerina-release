@@ -50,7 +50,7 @@ jobs:
       - name: dispatch build request
         run: |
           curl --request \
-          POST 'https://api.github.com/repos/ballerina-platform/module-ballerinax-${{matrix.modules}}/dispatches' \
+          POST 'https://api.github.com/repos/MohamedSabthar/module-ballerinax-${{matrix.modules}}/dispatches' \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Content-Type: application/json' \
           --header 'Authorization: token ${{secrets.BALLERINA_BOT_TOKEN}}' \
@@ -67,7 +67,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-            curl https://raw.githubusercontent.com/ballerina-platform/ballerina-release/master/dependabot/resources/extensions.json | jq '.extended_library | .[] | {name}' > modules.txt
+            curl https://raw.githubusercontent.com/MohamedSabthar/ballerina-release/master/dependabot/resources/extensions.json | jq '.extended_library | .[] | {name}' > modules.txt
             cat modules.txt | jq -s '.' | sed "s: ::g" | tr -d '\n' > processed.txt
             echo "::set-output name=matrix::{\"include\":$(cat processed.txt)}"
     
@@ -80,7 +80,7 @@ jobs:
     steps:
       - run: |
           curl --request \
-          POST 'https://api.github.com/repos/ballerina-platform/${{matrix.name}}/dispatches' \
+          POST 'https://api.github.com/repos/MohamedSabthar/${{matrix.name}}/dispatches' \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Content-Type: application/json' \
           --header 'Authorization: token ${{secrets.BALLERINA_BOT_TOKEN}}' \
