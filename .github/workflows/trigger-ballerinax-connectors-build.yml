@@ -2,6 +2,9 @@ name: Trigger ballerinax connectors build
 
 on:
   workflow_dispatch:
+    inputs:
+      docker_tag:
+        description: Which docker image to use ?
 
 jobs:
   trigger_repository_disptach:
@@ -52,7 +55,8 @@ jobs:
           --header 'Content-Type: application/json' \
           --header 'Authorization: token ${{secrets.BALLERINA_BOT_TOKEN}}' \
           --data-raw '{
-              "event_type":"check_connector_for_breaking_changes"
+              "event_type":"check_connector_for_breaking_changes",
+              "docker_tag": "${{ github.event.inputs.docker_tag }}"
           }'
 
   get_extended_library_modules:
@@ -81,5 +85,6 @@ jobs:
           --header 'Content-Type: application/json' \
           --header 'Authorization: token ${{secrets.BALLERINA_BOT_TOKEN}}' \
           --data-raw '{
-              "event_type":"check_connector_for_breaking_changes"
+              "event_type":"check_connector_for_breaking_changes",
+              "docker_tag": "${{ github.event.inputs.docker_tag }}"
           }'
